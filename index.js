@@ -1,4 +1,4 @@
-const { describe, it } = require('./mate.js')
+const { describe, it, xdescribe, xit } = require('./mate.js')
 const { expect } = require('chai')
 
 describe('tests to test the framework', function(){
@@ -7,11 +7,11 @@ describe('tests to test the framework', function(){
     expect(1).to.equal(1)
   })
 
-  it('failing assertion 1', function(){
+  xit('failing assertion 1', function(){
     expect(1).to.equal(2)
   })
 
-  it('passing assertion 2', function(){
+  xit('passing assertion 2', function(){
     expect('string').to.equal('string')
   })
 
