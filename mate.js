@@ -1,21 +1,35 @@
 const AssertionError = require('assert').AssertionError;
 const chalk = require('chalk')
 
-function describe(message, callback) {
-  console.log(" --- ", message, " --- ")
-  callback()
-}
+function mate() {
+  let passed = []
+  let failed = []
 
-function it(message, callback) {
-  try {
-    callback()
-    console.log(chalk.green(message), "✅")
-  } catch (e) {
-    console.log(chalk.red(e.message), "❌")
+  return {
+    describe: (message, cb)  => {
+
+      console.log("\n")
+      console.log(" --- ", chalk.blue(message), " --- ")
+      cb()
+      
+      console.log("Passing tests:", passed.map(test => "✅").join(' '))
+      failed.forEach(test => console.log(chalk.red(test.message, ":", test.error), "❌"))
+      console.log(chalk.blue(`${passed.length} tests passing, ${failed.length} tests failing`))
+      console.log("\n")
+    },
+    
+    it: (message, cb) => {
+      try {
+        cb()
+        passed.push(message)
+      } catch (e) {
+        failed.push({
+          error: e.message,
+          message
+        }) 
+      }
+    }
   }
 }
 
-module.exports = {
-  describe,
-  it
-}
+module.exports = mate()
