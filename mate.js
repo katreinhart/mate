@@ -15,12 +15,12 @@ function mate() {
       console.log("Passing tests:", passed.map(test => "✅").join(' '))
       failed.forEach(test => console.log(chalk.red(test.message, ":", test.error), "❌"))
       console.log("")
+      
       if (pending.length) {
         console.log(chalk.green(`${passed.length} tests passing,`), chalk.red(`\n${failed.length} tests failing,`), chalk.blue(`\n${pending.length} tests pending`))
       } else {
         console.log(chalk.green(`${passed.length} tests passing,`), chalk.red(`\n${failed.length} tests failing`))
       }
-      
     },
     
     it: (message, cb) => {
@@ -44,7 +44,6 @@ function mate() {
     xit: (message, cb) => {
       pending.push(message)
     }
-
   }
 }
 
